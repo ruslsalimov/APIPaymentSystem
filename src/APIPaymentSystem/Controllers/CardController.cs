@@ -79,7 +79,7 @@ namespace PaymentSystemAPI.Controllers
             {
                 CardNumber = info.CardNumber,
                 CardDate = cardDate,
-                VerificationNumber = info.VerificationCode,
+                VerificationNumber = info.VerificationNumber,
                 PaymentInfo = paymentInfo
             };
             await repository.SaveCardInfoAsync(cardInfo);

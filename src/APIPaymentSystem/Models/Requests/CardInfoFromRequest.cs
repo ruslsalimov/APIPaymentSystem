@@ -11,7 +11,7 @@ namespace PaymentSystemAPI.Models.Requests
 
         [Required(ErrorMessage = "Missing the card verification code")]
         [Range(100, 9999, ErrorMessage = "Invalid card verification code")]
-        public ushort VerificationCode { get; set; }          //  CVV/CVC
+        public ushort VerificationNumber { get; set; }          //  CVV/CVC
 
         [Required(ErrorMessage = "Missing the validity of the card")]
         [MaxLength(5, ErrorMessage = "Max Length = 5. Example: 02/23 - February 2023")]
