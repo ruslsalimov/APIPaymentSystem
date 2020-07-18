@@ -8,7 +8,8 @@ namespace PaymentSystemAPI.Models.Responses
     /// </summary>
     public class CardInfo
     {
-        [Key]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(19)]
         public string CardNumber { get; set; }          //  Номер карты

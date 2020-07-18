@@ -41,6 +41,8 @@ namespace APIPaymentSystem.Migrations
                 name: "CardInfo",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CardNumber = table.Column<string>(maxLength: 19, nullable: false),
                     VerificationNumber = table.Column<int>(nullable: false),
                     CardDate = table.Column<DateTime>(nullable: false),
@@ -48,7 +50,7 @@ namespace APIPaymentSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CardInfo", x => x.CardNumber);
+                    table.PrimaryKey("PK_CardInfo", x => x.Id);
                     table.ForeignKey(
                         name: "FK_CardInfo_PaymentInfo_PaymentInfoSessionId",
                         column: x => x.PaymentInfoSessionId,

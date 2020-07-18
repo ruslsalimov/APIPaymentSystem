@@ -11,6 +11,9 @@ namespace PaymentSystemAPI.Data
 
         public DbSet<Receipt> Receipts { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base((DbContextOptions)options) { }
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base((DbContextOptions)options)
+        {
+            //Database.EnsureDeleted();
+        }
     }
 }

@@ -10,7 +10,7 @@ using PaymentSystemAPI.Data;
 namespace APIPaymentSystem.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200718065917_Initial")]
+    [Migration("20200718165033_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,12 +23,18 @@ namespace APIPaymentSystem.Migrations
 
             modelBuilder.Entity("PaymentSystemAPI.Models.Responses.CardInfo", b =>
                 {
-                    b.Property<string>("CardNumber")
-                        .HasColumnType("nvarchar(19)")
-                        .HasMaxLength(19);
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CardDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(19)")
+                        .HasMaxLength(19);
 
                     b.Property<string>("PaymentInfoSessionId")
                         .IsRequired()
@@ -37,7 +43,7 @@ namespace APIPaymentSystem.Migrations
                     b.Property<int>("VerificationNumber")
                         .HasColumnType("int");
 
-                    b.HasKey("CardNumber");
+                    b.HasKey("Id");
 
                     b.HasIndex("PaymentInfoSessionId");
 
