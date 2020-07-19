@@ -12,6 +12,9 @@ namespace APIPaymentSystem.Data
         public DbSet<CardInfo> Cards { get; set; }
 
         public DbSet<Receipt> Receipts { get; set; }
-        public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options) { }
+        public AppIdentityDbContext(DbContextOptions<AppIdentityDbContext> options) : base(options)
+        {
+            Database.EnsureCreated();
+        }
     }
 }
