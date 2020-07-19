@@ -131,7 +131,7 @@ namespace APIPaymentSystem.Controllers
         }
 
         /// <summary>
-        /// отправляет HTTP-уведомление на URL магазина
+        /// Отправить HTTP-уведомление на URL магазина
         /// </summary>
         static async Task HttpNotice(CardInfoFromRequest info)
         {
