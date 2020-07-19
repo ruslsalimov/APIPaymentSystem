@@ -1,4 +1,4 @@
-# PaymentSystemAPI    
+<div align="center"><h1> PaymentSystemAPI </h1></div>
 
 Тестовое задание Backend-потока на [Xsolla Summer School 2020](https://github.com/FJCrux/xsolla-backend-school-2020).    
 Автор: Салимов Руслан.
