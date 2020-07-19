@@ -11,7 +11,7 @@ namespace APIPaymentSystem.Models.Responses
     {
         [Key]
         [Required]
-        public string SessionId { get; set; }
+        public Guid SessionId { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,5)")]

@@ -34,9 +34,8 @@ namespace APIPaymentSystem.Migrations
                         .HasColumnType("nvarchar(19)")
                         .HasMaxLength(19);
 
-                    b.Property<string>("PaymentInfoSessionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("PaymentInfoSessionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("VerificationNumber")
                         .IsRequired()
@@ -52,8 +51,9 @@ namespace APIPaymentSystem.Migrations
 
             modelBuilder.Entity("APIPaymentSystem.Models.Responses.PaymentInfo", b =>
                 {
-                    b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("SessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,5)");
@@ -72,8 +72,9 @@ namespace APIPaymentSystem.Migrations
 
             modelBuilder.Entity("APIPaymentSystem.Models.Responses.Receipt", b =>
                 {
-                    b.Property<string>("SessionId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("SessionId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,5)");

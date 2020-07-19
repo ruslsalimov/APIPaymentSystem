@@ -56,12 +56,18 @@ namespace APIPaymentSystem.Controllers
                     monthAndYear[0].ToString() + "/" + monthAndYear[1]);
                 if (!DateTime.TryParse(date, out cardDate))
                     throw new Exception();
-                if (cardDate > DateTime.Now)
+                if (DateTime.Now > cardDate)
                     throw new Exception();
             }
             catch (Exception)
             {
                 listErrors.Errors.Add(new Error() { Status = "400", Title = "Invalid card date" });
+            }
+
+            //  Проверка CVC/CVV
+            if(!int.TryParse(info.VerificationNumber, out _))
+            {
+                listErrors.Errors.Add(new Error() { Status = "400", Title = "Invalid card verification number" });
             }
 
             //  Проверка на существование платежа

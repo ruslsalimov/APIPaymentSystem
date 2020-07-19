@@ -41,7 +41,7 @@ namespace APIPaymentSystem.Controllers
 
             PaymentInfo payInfo = new PaymentInfo()
             {
-                SessionId = Guid.NewGuid().ToString(),
+                SessionId = Guid.NewGuid(),
                 Amount = info.Amount,
                 ArrivalTime = DateTime.Now,
                 Description = info.Description

@@ -7,7 +7,7 @@ namespace APIPaymentSystem.Models.Responses
     public class PaymentInfo
     {
         [Key]
-        public string SessionId { get; set; }
+        public Guid SessionId { get; set; }
 
         [Required]
         [Column(TypeName = "decimal(18,5)")]

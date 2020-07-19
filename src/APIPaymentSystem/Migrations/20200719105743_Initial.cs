@@ -20,7 +20,7 @@ namespace APIPaymentSystem.Migrations
                 {
                     table.PrimaryKey("PK_AspNetRoles", x => x.Id);
                 });
-            
+
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
                 columns: table => new
@@ -50,7 +50,7 @@ namespace APIPaymentSystem.Migrations
                 name: "Payments",
                 columns: table => new
                 {
-                    SessionId = table.Column<string>(nullable: false),
+                    SessionId = table.Column<Guid>(nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,5)", nullable: false),
                     Description = table.Column<string>(nullable: false),
                     ArrivalTime = table.Column<DateTime>(nullable: false)
@@ -64,7 +64,7 @@ namespace APIPaymentSystem.Migrations
                 name: "Receipts",
                 columns: table => new
                 {
-                    SessionId = table.Column<string>(nullable: false),
+                    SessionId = table.Column<Guid>(nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,5)", nullable: false),
                     Description = table.Column<string>(nullable: false),
                     ArrivalTime = table.Column<DateTime>(nullable: false),
@@ -191,7 +191,7 @@ namespace APIPaymentSystem.Migrations
                     CardNumber = table.Column<string>(maxLength: 19, nullable: false),
                     VerificationNumber = table.Column<string>(maxLength: 4, nullable: false),
                     CardDate = table.Column<DateTime>(nullable: false),
-                    PaymentInfoSessionId = table.Column<string>(nullable: false)
+                    PaymentInfoSessionId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {

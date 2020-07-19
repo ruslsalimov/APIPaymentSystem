@@ -18,7 +18,7 @@ namespace APIPaymentSystem.Models.Requests
         public string CardDate { get; set; }                    //  Срок действия карты 
 
         [Required(ErrorMessage = "Missing a sessionId")]
-        public string SessionId { get; set; }
+        public Guid SessionId { get; set; }
         public string storeUrl { get; set; }
     }
 }
