@@ -1,2 +1,2 @@
 # PaymentSystemAPI    
-Тестовое задание для Xsolla Summer School 2020
+[Тестовое задание](https://github.com/FJCrux/xsolla-backend-school-2020) для Xsolla Summer School 2020
