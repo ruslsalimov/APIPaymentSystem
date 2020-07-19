@@ -1,2 +1,2 @@
-<span style="color:red; font-family:Georgia; text-align:center; font-size:2em;"> # PaymentSystemAPI <span>    
+# PaymentSystemAPI    
 Тестовое задание для Xsolla Summer School 2020
