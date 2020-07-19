@@ -1,7 +1,7 @@
 ﻿﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace PaymentSystemAPI.Models.Responses
+namespace APIPaymentSystem.Models.Responses
 {
     /// <summary>
     /// Данные карты 
@@ -15,8 +15,8 @@ namespace PaymentSystemAPI.Models.Responses
         public string CardNumber { get; set; }          //  Номер карты
 
         [Required]
-        [Range(0, 9999)]
-        public ushort VerificationNumber { get; set; }  //  CVV/CVC
+        [StringLength(4, MinimumLength = 3)]
+        public string VerificationNumber { get; set; }  //  CVV/CVC
 
         [Required]
         public DateTime CardDate { get; set; }          //  Срок действия карты

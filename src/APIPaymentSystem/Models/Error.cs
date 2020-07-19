@@ -1,6 +1,6 @@
 ﻿﻿using System.Collections.Generic;
 
-namespace PaymentSystemAPI.Models
+namespace APIPaymentSystem.Models
 {
     public class Error
     {

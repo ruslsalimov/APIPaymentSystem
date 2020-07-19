@@ -1,4 +1,4 @@
-﻿﻿namespace PaymentSystemAPI.Models.Responses
+﻿﻿namespace APIPaymentSystem.Models.Responses
 {
     public class Session
     {

@@ -1,7 +1,7 @@
 ﻿﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PaymentSystemAPI.Models.Requests
+namespace APIPaymentSystem.Models.Requests
 {
     public class PaymentInfoFromRequest
     {

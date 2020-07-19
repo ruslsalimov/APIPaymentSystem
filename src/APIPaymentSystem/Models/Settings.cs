@@ -1,4 +1,4 @@
-﻿﻿namespace PaymentSystemAPI.Models
+﻿﻿namespace APIPaymentSystem.Models
 {
     public class Settings
     {

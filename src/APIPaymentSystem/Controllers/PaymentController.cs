@@ -1,12 +1,14 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
-using PaymentSystemAPI.Models;
+using APIPaymentSystem.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using PaymentSystemAPI.Models.Requests;
-using PaymentSystemAPI.Models.Responses;
+using APIPaymentSystem.Models.Requests;
+using APIPaymentSystem.Models.Responses;
+using Microsoft.AspNetCore.Authorization;
 
-namespace PaymentSystemAPI.Controllers
+namespace APIPaymentSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -50,5 +52,11 @@ namespace PaymentSystemAPI.Controllers
             return Ok(new Session() { SessionId = payInfo.SessionId });
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult GetPayments(DateTime from, DateTime to)
+        {
+            return Ok(repository.Payments.Where(payment => payment.ArrivalTime > from && payment.ArrivalTime < to));
+        }
     }
 }

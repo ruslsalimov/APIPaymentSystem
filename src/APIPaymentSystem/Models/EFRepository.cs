@@ -1,30 +1,34 @@
-﻿using PaymentSystemAPI.Data;
-using PaymentSystemAPI.Models.Responses;
+﻿using APIPaymentSystem.Data;
+using APIPaymentSystem.Models.Responses;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace PaymentSystemAPI.Models
+namespace APIPaymentSystem.Models
 {
     public class EFRepository : IRepository
     {
-        private ApplicationContext db;
+        private AppIdentityDbContext db;
 
-        public EFRepository(ApplicationContext context)
+        public EFRepository(AppIdentityDbContext context)
         {
             this.db = context;
         }
 
-        public IQueryable<PaymentInfo> PaymentInfo => db.PaymentInfo;
+        public IQueryable<PaymentInfo> Payments => db.Payments;
+
+        public IQueryable<CardInfo> Cards => db.Cards;
+
+        public IQueryable<Receipt> Receipts => db.Receipts;
 
         public async Task SaveCardInfoAsync(CardInfo info)
         {
-            db.CardInfo.Add(info);
+            db.Cards.Add(info);
             await db.SaveChangesAsync();
         }
 
         public async Task SavePaymentInfoAsync(PaymentInfo info)
         {
-            db.PaymentInfo.Add(info);
+            db.Payments.Add(info);
             await db.SaveChangesAsync();
         }
 

@@ -1,14 +1,18 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using PaymentSystemAPI.Models;
-using PaymentSystemAPI.Models.Requests;
-using PaymentSystemAPI.Models.Responses;
+using APIPaymentSystem.Models;
+using APIPaymentSystem.Models.Requests;
+using APIPaymentSystem.Models.Responses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json;
+using System.Text;
 
-namespace PaymentSystemAPI.Controllers
+namespace APIPaymentSystem.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -52,6 +56,8 @@ namespace PaymentSystemAPI.Controllers
                     monthAndYear[0].ToString() + "/" + monthAndYear[1]);
                 if (!DateTime.TryParse(date, out cardDate))
                     throw new Exception();
+                if (cardDate > DateTime.Now)
+                    throw new Exception();
             }
             catch (Exception)
             {
@@ -59,14 +65,21 @@ namespace PaymentSystemAPI.Controllers
             }
 
             //  Проверка на существование платежа
-            if (!repository.PaymentInfo.Any(pay => pay.SessionId == info.SessionId))
+            if (!repository.Payments.Any(pay => pay.SessionId == info.SessionId))
             {
                 listErrors.Errors.Add(new Error() { Status = "400", Title = "Invalid sessionId" });
                 return BadRequest(listErrors);
             }
 
-            //  Не прошло ли время жизни платёжной сессии
-            PaymentInfo paymentInfo = repository.PaymentInfo.First(s => s.SessionId == info.SessionId);
+            //  Был ли уже оплачен платёж?
+            if (repository.Receipts.Any(receipt => receipt.SessionId == info.SessionId))
+            {
+                listErrors.Errors.Add(new Error() { Status = "400", Title = "Payment has already been made" });
+                return BadRequest(listErrors);
+            }
+
+            //  Не прошло ли время жизни платёжной сессии?
+            PaymentInfo paymentInfo = repository.Payments.First(s => s.SessionId == info.SessionId);
             if (DateTime.Now - paymentInfo.ArrivalTime > TimeSpan.FromSeconds(settings.LifeTimeSession))
                 listErrors.Errors.Add(new Error() { Status = "400", Title = "The payment session has expired" });
 
@@ -94,6 +107,11 @@ namespace PaymentSystemAPI.Controllers
                 TimePayment = DateTime.Now
             };
             await repository.SaveReceiptAsync(receipt);
+            
+            if (!string.IsNullOrEmpty(info.storeUrl))
+            {
+                await HttpNotice(info);
+            }
 
             return Ok(receipt);
         }
@@ -110,6 +128,32 @@ namespace PaymentSystemAPI.Controllers
                             .Sum(e => e < 10 ? e : e -= 9);
 
             return sumOfDigits % 10 == 0;
+        }
+
+        /// <summary>
+        /// отправляет HTTP-уведомление на URL магазина
+        /// </summary>
+        static async Task HttpNotice(CardInfoFromRequest info)
+        {
+            try
+            {
+                WebRequest request = WebRequest.Create(info.storeUrl);
+                request.Method = "POST";
+                request.ContentType = "application/vnd.api+json";
+
+                string json = JsonConvert.SerializeObject(info);
+                byte[] data = Encoding.UTF8.GetBytes(json);
+                request.ContentLength = data.Length;
+
+                await Task.Run(() =>
+                {
+                    using (Stream dataStream = request.GetRequestStream())
+                    {
+                        dataStream.WriteAsync(data, 0, data.Length);
+                    }
+                });
+            }
+            catch (WebException) { }
         }
     }
 }
