@@ -21,10 +21,6 @@ git clone https://github.com/FrostyCreator/APIPaymentSystem
 ```
 cd ..\APIPaymentSystem\src\APIPaymentSystem
 ```    
-Восстановить все зависимости решения:
-```
-dotnet restore
-```
 Запустить программу:
 ```
 dotnet run
